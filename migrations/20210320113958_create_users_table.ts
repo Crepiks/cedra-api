@@ -9,6 +9,7 @@ export async function up(knex: Knex): Promise<void> {
     table.date("birthday").notNullable();
     table.string("avatar", 255).nullable();
     table.string("avatarPreview", 255).nullable();
+    table.text("description").nullable();
     table.integer("genderId").unsigned().notNullable();
     table.foreign("genderId").references("genders.id").onDelete("CASCADE");
     table.integer("orientationId").unsigned().notNullable();
