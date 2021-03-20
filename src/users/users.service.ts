@@ -5,6 +5,8 @@ class UsersService {
   getUsers = () => User.query();
 
   createUser = (payload: CreateUserDto) => User.query().insertAndFetch(payload);
+
+  findUserByPhoneNumber = (phoneNumber: string) => User.query().findOne({ phoneNumber });
 }
 
 export default UsersService;

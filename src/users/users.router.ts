@@ -10,5 +10,6 @@ const router = Router();
 
 router.get("/", asyncHander(usersController.index()));
 router.post("/", asyncHander(usersController.store()));
+router.get("/:phoneNumber", asyncHander(usersController.get()));
 
 export default router;
