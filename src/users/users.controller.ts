@@ -63,6 +63,21 @@ class UsersController extends Controller {
     this.sendSuccessResponse(res, "Tag is related to user", { tag });
   };
 
+  unrelateTag = () => async (req: Request, res: Response) => {
+    const { phoneNumber } = req.params;
+    const user = await this.usersService.findUserByPhoneNumber(phoneNumber);
+    this.checkUserPresence(user);
+
+    const { tagId } = req.params;
+    const tag = await this.usersService.findTagForUserById(user, (tagId as unknown) as number);
+    if (!tag) {
+      throw new NotFoundError("Tag not found for user");
+    }
+
+    await this.usersService.unrelateTag(user, tag.id);
+    this.sendSuccessResponse(res, "Tag is unrelated from user", { tag });
+  };
+
   private checkUserPresence(user: User) {
     if (!user) {
       throw new NotFoundError("User not found");

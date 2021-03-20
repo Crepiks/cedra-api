@@ -14,5 +14,6 @@ router.get("/:phoneNumber", asyncHander(usersController.get()));
 router.patch("/:phoneNumber", asyncHander(usersController.update()));
 router.delete("/:phoneNumber", asyncHander(usersController.delete()));
 router.post("/:phoneNumber/tags", asyncHander(usersController.relateTag()));
+router.delete("/:phoneNumber/tags/:tagId", asyncHander(usersController.unrelateTag()));
 
 export default router;

@@ -19,6 +19,9 @@ class UsersService {
   findTagForUserById = (user: User, tagId: number) => user.$relatedQuery("tags").findById(tagId);
 
   relateTag = (user: User, tag: Tag) => user.$relatedQuery("tags").relate(tag);
+
+  unrelateTag = (user: User, tagId: number) =>
+    user.$relatedQuery("tags").unrelate().findById(tagId);
 }
 
 export default UsersService;
