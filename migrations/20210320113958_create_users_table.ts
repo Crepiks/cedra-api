@@ -7,6 +7,8 @@ export async function up(knex: Knex): Promise<void> {
     table.string("firstName", 255).notNullable();
     table.string("lastName", 255).nullable();
     table.date("birthday").notNullable();
+    table.string("avatar", 255).nullable();
+    table.string("avatarPreview", 255).nullable();
     table.integer("genderId").unsigned().notNullable();
     table.foreign("genderId").references("genders.id").onDelete("CASCADE");
     table.integer("orientationId").unsigned().notNullable();
