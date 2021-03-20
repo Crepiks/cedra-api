@@ -4,7 +4,8 @@ class Gender extends Model {
   static tableName = "genders";
 
   id!: number;
-  name!: string;
+  single!: string;
+  plural!: string;
   createdAt!: string;
 
   static get relationMappings() {
