@@ -1,4 +1,5 @@
 import User from "../models/user.model";
+import Tag from "../models/tag.model";
 import CreateUserDto from "./dto/create-user.dto";
 import UpdateUserDto from "./dto/update-user.dto";
 
@@ -12,6 +13,12 @@ class UsersService {
   updateUser = (user: User, payload: UpdateUserDto) => user.$query().patchAndFetch(payload);
 
   deleteUser = (user: User) => user.$query().delete();
+
+  findTagById = (tagId: number) => Tag.query().findById(tagId);
+
+  findTagForUserById = (user: User, tagId: number) => user.$relatedQuery("tags").findById(tagId);
+
+  relateTag = (user: User, tag: Tag) => user.$relatedQuery("tags").relate(tag);
 }
 
 export default UsersService;

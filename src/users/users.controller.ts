@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
-import { NotFoundError } from "../core/api-error";
+import { ConflictError, NotFoundError } from "../core/api-error";
 import Controller from "../core/controller";
-import CreateUserDto from "./dto/create-user.dto";
 import UsersService from "./users.service";
 import User from "../models/user.model";
+import Tag from "../models/tag.model";
+import CreateUserDto from "./dto/create-user.dto";
 import UpdateUserDto from "./dto/update-user.dto";
 
 class UsersController extends Controller {
@@ -48,9 +49,36 @@ class UsersController extends Controller {
     this.sendSuccessResponse(res, "User deleted", {});
   };
 
+  relateTag = () => async (req: Request, res: Response) => {
+    const { phoneNumber } = req.params;
+    const user = await this.usersService.findUserByPhoneNumber(phoneNumber);
+    this.checkUserPresence(user);
+
+    const { tagId } = req.body;
+    const tag = await this.usersService.findTagById(tagId);
+    this.checkTagPresence(tag);
+    await this.checkTagAlreadyExistsForUser(user, tag.id);
+
+    await this.usersService.relateTag(user, tag);
+    this.sendSuccessResponse(res, "Tag is related to user", { tag });
+  };
+
   private checkUserPresence(user: User) {
     if (!user) {
       throw new NotFoundError("User not found");
+    }
+  }
+
+  private checkTagPresence(tag: Tag) {
+    if (!tag) {
+      throw new NotFoundError("Tag not found");
+    }
+  }
+
+  private async checkTagAlreadyExistsForUser(user: User, tagId: number) {
+    const userTag = await this.usersService.findTagForUserById(user, tagId);
+    if (userTag) {
+      throw new ConflictError("Tag already related to the user");
     }
   }
 }
