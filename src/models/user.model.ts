@@ -18,6 +18,7 @@ class User extends Model {
 
   static get relationMappings() {
     const Gender = require("./gender.model");
+    const Orientation = require("./orientation.model");
     const Tag = require("./tag.model");
 
     return {
@@ -27,6 +28,14 @@ class User extends Model {
         join: {
           from: "user.genderId",
           to: "genders.id",
+        },
+      },
+      orientation: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Orientation,
+        join: {
+          from: "users.orientationId",
+          to: "orientations.id",
         },
       },
       preferences: {

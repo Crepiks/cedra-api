@@ -9,6 +9,8 @@ export async function up(knex: Knex): Promise<void> {
     table.date("birthday").notNullable();
     table.integer("genderId").unsigned().notNullable();
     table.foreign("genderId").references("genders.id").onDelete("CASCADE");
+    table.integer("orientationId").unsigned().notNullable();
+    table.foreign("orientationId").references("orientations.id").onDelete("CASCADE");
     table.timestamp("createdAt").defaultTo(knex.fn.now());
   });
 }
