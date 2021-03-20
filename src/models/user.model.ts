@@ -62,6 +62,32 @@ class User extends Model {
           to: "tags.id",
         },
       },
+      reactedByUser: {
+        relation: Model.ManyToManyRelation,
+        modelClass: User,
+        join: {
+          from: "users.id",
+          through: {
+            from: "reactions.initiatorId",
+            to: "reactions.recipientId",
+            extra: ["like"],
+          },
+          to: "users.id",
+        },
+      },
+      reactedToUser: {
+        relation: Model.ManyToManyRelation,
+        modelClass: User,
+        join: {
+          from: "users.id",
+          through: {
+            from: "reactions.recipientId",
+            to: "reactions.initiatorId",
+            extra: ["like"],
+          },
+          to: "users.id",
+        },
+      },
     };
   }
 }
