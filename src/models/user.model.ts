@@ -26,7 +26,7 @@ class User extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: Gender,
         join: {
-          from: "user.genderId",
+          from: "users.genderId",
           to: "genders.id",
         },
       },

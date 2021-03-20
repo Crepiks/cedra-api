@@ -10,6 +10,14 @@ class UsersService {
 
   findUserByPhoneNumber = (phoneNumber: string) => User.query().findOne({ phoneNumber });
 
+  detailUserByPhoneNumber = (phoneNumber: string) =>
+    User.query().findOne({ phoneNumber }).withGraphFetched({
+      gender: true,
+      orientation: true,
+      preferences: true,
+      tags: true,
+    });
+
   updateUser = (user: User, payload: UpdateUserDto) => user.$query().patchAndFetch(payload);
 
   deleteUser = (user: User) => user.$query().delete();

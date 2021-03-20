@@ -25,7 +25,7 @@ class UsersController extends Controller {
 
   get = () => async (req: Request, res: Response) => {
     const { phoneNumber } = req.params;
-    const user = await this.usersService.findUserByPhoneNumber(phoneNumber);
+    const user = await this.usersService.detailUserByPhoneNumber(phoneNumber);
     this.checkUserPresence(user);
     this.sendSuccessResponse(res, "User retrieved", { user });
   };
