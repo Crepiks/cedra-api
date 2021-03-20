@@ -3,6 +3,8 @@ import { NotFoundError } from "../core/api-error";
 import Controller from "../core/controller";
 import CreateUserDto from "./dto/create-user.dto";
 import UsersService from "./users.service";
+import User from "../models/user.model";
+import UpdateUserDto from "./dto/update-user.dto";
 
 class UsersController extends Controller {
   constructor(private usersService: UsersService) {
@@ -23,13 +25,25 @@ class UsersController extends Controller {
   get = () => async (req: Request, res: Response) => {
     const { phoneNumber } = req.params;
     const user = await this.usersService.findUserByPhoneNumber(phoneNumber);
+    this.checkUserPresence(user);
+    this.sendSuccessResponse(res, "User retrieved", { user });
+  };
 
+  update = () => async (req: Request, res: Response) => {
+    const { phoneNumber } = req.params;
+    const user = await this.usersService.findUserByPhoneNumber(phoneNumber);
+    this.checkUserPresence(user);
+
+    const payload: UpdateUserDto = req.body;
+    const updatedUser = await this.usersService.updateUser(user, payload);
+    this.sendSuccessResponse(res, "User updated", { user: updatedUser });
+  };
+
+  private checkUserPresence(user: User) {
     if (!user) {
       throw new NotFoundError("User not found");
     }
-
-    this.sendSuccessResponse(res, "User retrieved", { user });
-  };
+  }
 }
 
 export default UsersController;
