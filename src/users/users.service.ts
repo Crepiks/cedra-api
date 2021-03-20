@@ -10,6 +10,8 @@ class UsersService {
   findUserByPhoneNumber = (phoneNumber: string) => User.query().findOne({ phoneNumber });
 
   updateUser = (user: User, payload: UpdateUserDto) => user.$query().patchAndFetch(payload);
+
+  deleteUser = (user: User) => user.$query().delete();
 }
 
 export default UsersService;

@@ -39,6 +39,15 @@ class UsersController extends Controller {
     this.sendSuccessResponse(res, "User updated", { user: updatedUser });
   };
 
+  delete = () => async (req: Request, res: Response) => {
+    const { phoneNumber } = req.params;
+    const user = await this.usersService.findUserByPhoneNumber(phoneNumber);
+    this.checkUserPresence(user);
+
+    await this.usersService.deleteUser(user);
+    this.sendSuccessResponse(res, "User deleted", {});
+  };
+
   private checkUserPresence(user: User) {
     if (!user) {
       throw new NotFoundError("User not found");

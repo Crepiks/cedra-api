@@ -12,5 +12,6 @@ router.get("/", asyncHander(usersController.index()));
 router.post("/", asyncHander(usersController.store()));
 router.get("/:phoneNumber", asyncHander(usersController.get()));
 router.patch("/:phoneNumber", asyncHander(usersController.update()));
+router.delete("/:phoneNumber", asyncHander(usersController.delete()));
 
 export default router;
