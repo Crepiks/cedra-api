@@ -9,5 +9,6 @@ const usersController = new UsersController(usersService);
 const router = Router();
 
 router.get("/", asyncHander(usersController.index()));
+router.post("/", asyncHander(usersController.store()));
 
 export default router;
