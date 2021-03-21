@@ -13,5 +13,9 @@ router.get(
   "/:phoneNumber/get-reacted-by-user-id",
   asyncHandler(reactionsController.getReactedByUser())
 );
+// router.post(
+//     "/:phoneNumber/get-reacted-by-user-id",
+//     asyncHandler(reactionsController.addReactByUser())
+//   );
 
 export default router;

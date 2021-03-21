@@ -25,6 +25,21 @@ class ReactionsController extends Controller {
     this.sendSuccessResponse(res, "Reacted by user users retrieved", { users });
   };
 
+//   addReactByUser = () => async (req: Request, res: Response) => {
+//     const { phoneNumber } = req.params;
+//     const user = await this.reactionsService.detailUserByPhoneNumber(phoneNumber);
+//     this.checkUserPresence(user);
+
+//     const { reactedUserPhoneNumber } = req.body;
+//     const reactedUser = await this.reactionsService.detailUserByPhoneNumber(reactedUserPhoneNumber);
+//     this.checkUserPresence(reactedUser);
+
+//     const { like } = req.body;
+
+//     const createdReaction = await this.reactionsService.addReactByUser(user, reactedUser, like);
+//     this.sendSuccessResponse(res, "Reaction by user created", { createdReaction });
+//   };
+
   private checkUserPresence(user: User) {
     if (!user) {
       throw new NotFoundError("User not found");
