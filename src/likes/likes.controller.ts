@@ -19,6 +19,18 @@ class LikesController extends Controller {
     const users = await this.likesService.getLikedByUser(user);
     this.sendSuccessResponse(res, "Likes by user retrieved", { users });
   };
+
+  getLikedToUser = () => async (req: Request, res: Response) => {
+    const { phoneNumber } = req.params;
+    const user = await this.likesService.findUserByPhoneNumber(phoneNumber);
+
+    if (!user) {
+      throw new NotFoundError("User not found");
+    }
+
+    const users = await this.likesService.getLikedToUser(user);
+    this.sendSuccessResponse(res, "Likes to user retrieved", { users });
+  };
 }
 
 export default LikesController;
