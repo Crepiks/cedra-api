@@ -15,6 +15,9 @@ class User extends Model {
   gender?: Gender;
   preferences?: Gender[];
   tags?: Tag[];
+  reactedByUser?: User[];
+  reactedToUser?: User[];
+  like?: boolean;
 
   static get relationMappings() {
     const Gender = require("./gender.model");
