@@ -8,6 +8,18 @@ class FeedController extends Controller {
     super();
   }
 
+  getSuggestions = () => async (req: Request, res: Response) => {
+    const { phoneNumber } = req.params;
+    const user = await this.feedService.findUserByPhoneNumber(phoneNumber);
+
+    if (!user) {
+      throw new NotFoundError("User not found");
+    }
+
+    const suggestions = await this.feedService.getSuggestions(user);
+    this.sendSuccessResponse(res, "Suggestions retrieved", { suggestions });
+  };
+
   react = () => async (req: Request, res: Response) => {
     const { phoneNumber } = req.params;
     const initiator = await this.feedService.findUserByPhoneNumber(phoneNumber);

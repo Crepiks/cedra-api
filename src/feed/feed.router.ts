@@ -8,6 +8,7 @@ const feedController = new FeedController(feedService);
 
 const router = Router();
 
+router.get("/:phoneNumber", asyncHandler(feedController.getSuggestions()))
 router.post("/:phoneNumber", asyncHandler(feedController.react()));
 
 export default router;
